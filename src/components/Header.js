@@ -14,7 +14,7 @@ const {user} = useContext(UserContext);
 const cartItems = useSelector(store => store.cart.items);
     return (
             <div className='flex justify-between bg-pink-50 shadow-lg'>
-                 <Title/>
+                 {/* <Title/> */}
                  <div className=''>
                     <ul className='flex py-10'>
                             <li className='px-2'>
