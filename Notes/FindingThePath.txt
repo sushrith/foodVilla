@@ -1,0 +1,97 @@
+-Never create a component inside a component
+it will create problems in rendering.
+
+-Never ever use write usestate inside if else.
+React dont want inconsistencies in variables.
+U should exactly know which react has to track.
+-Never write inside a for loop.
+-Never use usestate outside functional component.
+-use can use more than 1 useEffect
+
+-> for forms use formik npm package amazing package
+
+-> react router dom [createBrowserRouter,RouterProvider,useRouteError,Link,Outlet,useParams] -> for routing to diff pages
+createBrowserRouter from "react-router-dom" -> help us create configuration for routing.
+RouterProvider from "react-router-dom" ->(provides route) Routes components based on config provided.
+const appRouter = createBrowserRouter([
+        {
+            path: "/",
+            element: <AppLayout/>,
+            errorElement: <Error/> => any error in the route it redirect to error compoent
+        },
+        {
+                path: "/about",
+                element: <About/>
+        },
+]);
+
+root.render(<RouterProvider router={appRouter}/>);
+
+
+import { useRouteError } from 'react-router-dom'
+
+useRouteError => Hook catches all errors and u can print the status, err msg n everything
+
+SPA => with react we build single page applications
+page does not reload on actions 
+it will not make any network calls.
+
+Two types of Routing :
+1) client based -> without network call it loads a page
+2) server Side Routing -> click about we used to get this page from server(old way)
+
+(server side)we should not use anchor tags as it loads whole pages
+
+(Client side)use Link from react-router-dom (works like anchor tag)(Internally uses anchor tag)
+
+Nested Routing:-(amazing)
+1) if u click about/contact then nav and footer should be visible always
+how do u do this?
+First change AppLayout
+<AppLayout>
+<Header>
+<Outlet> => react-router-dom has this Outlet All children goes to the outlet(based on path children is changed)(
+    if path is / => <Outlet> will be changed to <Body>
+    if path is /about => <Outlet> will be changed to <About>
+    if path is /contact => <Outlet> will be changed to <Contact>
+
+)
+<Footer>
+</AppLayout>
+you need to change the createBrowserRouter config
+{
+            path: "/",
+            element: <AppLayout/>,
+            errorElement: <Error/>,
+            children: [
+                {
+                        path: "/",
+                        element: <Body/>
+                },
+                {
+                        path: "/about",
+                        element: <About/>
+                },
+                {
+                        path: "/contact",
+                        element: <Contact/>
+                }
+            ]
+}
+
+------------------Dynamic Routing----------
+Route is not fixed i can be changed
+example
+if swiggy u have many restautans when u click on each restautant route changes
+click Macdonalds route = /restautants/Macdonalds
+click kfc route = /restautants/kfc
+Route = /restautants/:{id}
+
+useParams => Hook from react-router-dom Used to read parameters
+
+Writing good code - (good folder structure,components,no harcoding in components)
+Modular
+Readable
+Maintainable
+Resuse
+Testable

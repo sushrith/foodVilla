@@ -1,0 +1,4 @@
+/* tailwind is present in all components helped for bundlers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

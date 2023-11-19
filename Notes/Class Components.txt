@@ -1,0 +1,154 @@
+NESTED ROUTING :
+
+for nested routing use children of children
+{path:"/",
+element:
+errorElement:
+children:[
+    {
+        path:"/about",
+        element:<About>,
+        children:[
+            {
+                path:"profile", // parentpath/{path} localhost:1234/about/profile
+                element:<Profile>,
+            }
+        ]
+    }
+]
+
+}
+
+=> outlet is always created in parent component.
+So Go to about component and place <Outlet/> so that when path is profile <Outlet/> is replaced by <Profile/>
+------------------------------------------------------------------------------------------------------------------------
+class based components is old way of writing. So dont use.
+
+Class Based component => is a js Class which extends React.component
+You cannot create class based components without render method.
+render return jsx.
+
+U will revieve props using this.props in class component.
+when parent pass props it will take and attach to this of child class.
+
+State:
+constructor is a place for initialization
+constructor(props){
+    super(props);  // u will call parent constructor
+    //create state over here
+    this.state = { //react gives us this state
+        count:0,
+        count2:0,
+    }
+}
+
+this.state.count
+All state variables are present inside one object. //so use only single state.
+We do not mutate state directly -> Never do this.
+this.setState({
+
+})
+
+Every class component has react life cycle:-
+1st constructor() is called
+Render()
+componentDidMount() //use effect with dependency array=[] //Best place to call API's(Fist we will render the component and we will update it later)
+
+when there is a parent and child class components it will be called in this way
+parentConstructor => parentRender => childConstructor => childRender => childComponentdidMout => parentComponentdidMount
+
+when you have multiple child components in Parent order will be this:
+Parent constructor
+Parent render
+First child constructor
+First child render
+Second child constructor
+Second child render
+
+***DOM updated - completed 1st phase***
+
+First child componentDidMount
+Second child componentDidMount
+Parent componentDidMount
+*****called in order of child declared******
+
+
+When React is rendering thing it does in 2 phases
+1) Render Phase (React first finished the render phase)(fast)(batches up render phase for all children)
+- constructor
+- render
+
+2) Commit Phase (place where react is modifying your DOM)(slow)
+                React updates the DOM and refs
+- componentDidMount
+
+if the flow is not like this one of the child can make api call which takes
+time because of which render will be delayed for rest of the childs.
+----------------------------------------
+U can make componentDidMount as async
+async componentDidMount(){}    
+U cannot make useEffect async
+useEffect(async ()=>{},[]) //Not possible
+- because
+useEffect is designed to handle single effects.
+Async functions return Promise.
+useEffect expects to return cleanup function or nothing. But it should'nt return promoise.
+But u can write an async function and invoke async in useEffect ->
+useEffect(()=>{
+    const fetchData = async ()=>{
+    }
+    fetchData();
+},[])
+--------------------------------------------
+-->>>>
+order changes when api calls are used in componentDidMount [MOUNTING]
+
+parent constructor
+parent Render
+child Constrocter
+child render
+
+Parent componentDidMount is called
+child componentDidMount is called  ---->(data will be loaded at last) This is called later because of API call and Async
+
+Here the child componentDidMount is invoked first but API call will delay the componentDidMount
+Since it is async parent component will be rendered first.
+-------------------------------------------------
+---->>>>
+When ever state updates(SetState()- just line useOnline hook in our app)/forceUpdate()/New Props component is rerendered
+This Re-Render Cycle is known as **[UPDATING]**
+1st Render is called as a part of Render Phase
+2nd DOM gets updated
+3rd componentDidUpdate() is called
+--------ORDER OF EXECUTION------ALL this can be done using Single useEffect-----
+Child constructor
+Child render
+Update the DOM with initial values
+Child componentDidMount() //This is called just after 1st render
+API calls
+set State
+child render
+Update DOM with new values
+child componentDidUpdate(prevProps, prevState) //This is called evertime state update after 1st render completed 
+componentWillUnmount() // while unmounting/destroy(unmounting from DOM - when will this component go from DOM? - Someother page/TAB switch/new one replace it ) component
+
+//cleanup in componentWillUnmount involves
+1) clearInterval() if its set already (if not cleared it will keep running)(if u go back to same page it will start new interval again) - one of the cons of SPA
+When u change the page is not loaded again this could be a problem of old intervals are running in background.
+2) clearTimeOut()
+3) clearSubscriptions()
+
+----------------------------------
+ALL this can be done using Single useEffect
+useEffect(()=>{
+    //you code 
+    return () =>{
+    //cleanup
+    };
+},[dependency Array])
+
+- U cannot have multiple lifecycle methods in your class based component
+
+
+
+SEE SCREENSHOT DIAGRAM IN NOTES FOR UNDERSTANDING IT IN EASY WAY.

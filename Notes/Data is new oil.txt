@@ -1,0 +1,55 @@
+In Every React Application we have
+UI LAYER - Build using JSX
+DATA LAYER - State and props
+React dev tools extension - components and profiler
+go to inspect and u can see UI later and data later
+for every component u can see state and props
+
+Prop Drilling(its not a good way) -> passing props from parent to its child to its child to its child and goes on.
+cons:(2-3 Levels its ok to pass props but if u have 10 levels it is not ok)
+1) Many files to be changed, More code
+2) Hard to debug
+3) Suppose u have this data passing from many components if you change the props in one component then it will rerender all props using it. 
+
+Passing data from child to parent is also possible using various ways
+1) useRef() - hook trigger function of parent from child
+
+LIFTING STATE UP
+1) This is a case where child want to modify parents state.(try optimize code jst like we did in instamart component)
+    ---- BAD CODE ----
+    So parent passes child a function from where he can update the state.
+    bad code because more and more components created more hardcoding for each commponent send props individal function for all. 
+    Q)Why do we need to pass function as ()=>{set()} and recive as onClick={()=>handle()}
+
+In dev tools
+open profiler
+-> Records whole session/ users journey
+ - start profiler
+ - perform actions
+ - stop profiler
+ - It will show u all actions and how much time it took to render each component data etc
+
+*) Passing Props to child components without prop Drilling,
+   U need to keep prop data in central storage 
+        ngrx(angular)
+        Context,Redux(in React), It is like a global variable which react tracks it.
+        
+- Context Api(createContext , useContext from 'react') Central Data
+    - You can create a Global state using context Api
+    - // THIS IS A GLOBAL STATE // const UserContext = createContext({user:{name: "Dummy Name",email: "dummy@gmail.com"}});
+    - const {user} = useContext(UserContext) //Go to any component and get user details like this
+    - console.log(user.name) //use directly
+
+    -- How to useContext Hook in class component?? // U read the context here
+        // Go to any component where u want the data
+            <UserContext.Consumer>
+                {(value) => console.log(value)}    
+            </UserContext.Consumer>
+
+        // To modify/override the default value and pass it to childs - This can be done in both functional and class components
+            <UserContext.Provider value={user:user}> //here u pass new user
+                                                     //inside value u can pass set state also to update the state everywhere   
+                <Header/>
+                <Outlet/>
+                <Footer/>
+            </UserContext.Provider>
