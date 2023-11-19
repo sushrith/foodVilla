@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sushrith/react.git"
+    "url": "git+https://github.com/sushrith/foodVilla.git"
   },
   "author": "sushrith bondugula",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sushrith/react/issues"
+    "url": "https://github.com/sushrith/foodVilla/issues"
   },
   "homepage": "https://sushrith.github.io/foodVilla",
   "devDependencies": {
