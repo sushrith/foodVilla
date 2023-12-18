@@ -1,0 +1,50 @@
+Hoisting in js
+___________________
+In other programing languagues u cannot access variables 
+before its declaration.
+
+But in js it not error. 
+
+Undefined -> placeholder (declared but not initialzed)
+not defined => error (not declared)
+
+** Phenomenon in js where u can access variables and function before initializing it**
+
+Create exection context and check the ans.
+-------------------------------------------------------------
+For Arrow function js will treat it as variables store Undefined initally
+where as for function whole code is stored in initializing phase
+
+
+1) var variables => Undefined
+2) function fn => will store function/code
+3) var fn = () =>{} --> Undefined js treats as variable
+4) var name = function(){} --> Undefined js treats as variable
+-----------------------FUNCTIONS----------------------------------------------------------------
+GEC -> LEC (delete after exection)
+first search in local mem then go to parents lexical memory.
+--------------------------------------------------
+Shortest Js program is a empty js file
+Behind the scenes.
+1) Global Execution context is created
+2) Js engine creates a window object.
+3) window has many functions and objects
+4) IT CREATES THIS VARIABLE.
+chrome has v8 js engine.
+In every server js create Global object.
+In browsers it is known as window.
+At global level this === window //True
+Any code not inside a function will be in global space.
+to access any global space variable (console.log(a)) or console.log(window.a) or console.log(this.a);
+This points to global object.
+------------------------------------------------------
+undefined = when u allocate Memory to variables undefined is used as place holder for that variable.
+undefined is the Value for variable before its initialization.
+
+Not Defined = If u dont allocate any Memory to a variable but try to access it then u will get err as not defined.
+
+JavaScript is a loosely/weakly typed languague variable is not attached to any datatype.
+dont asign undefined by yourself to any variable.(not good practise,leads to inconsistencies)
+----------------------------------------------------------------------------------------------
+
+

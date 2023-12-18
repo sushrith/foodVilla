@@ -1,0 +1,23 @@
+- features to develop(vanila Js):
+- problem statemet and solution.
+- Time management (1-2hrs)
+- first 5 mins (understand,apporch,libaray's["Loadash","Underscore.js"],datastructures)
+
+
+Before Interview:-
+- Code from Scratch
+- Learn Shortcalls
+- fetch data how to do
+- libaray Functions - "Loadash","Underscore.js"
+- DOM Manipulation in pure js (querySelectors)
+- LocalStorage how to use
+- Searching,Sorting and tagging(use mainly lib functions)
+- UI (css flexbox)
+- Think Recursively
+- Is your code Modular?? (functions,reusable)
+- Scalable - accomidata more features
+- Readable - good Names (dont use inline css,keep everything seperate)
+- know when to step (focus on happy flow not edge cases)
+- Test Your code
+- Implement Uniqueness, Reposnive , ES6 fetaures (jst few features enough).
+---------------------------------------------------------------------------------------

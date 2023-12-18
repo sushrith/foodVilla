@@ -1,0 +1,38 @@
+ployfill -> code which is replacement of old version of code ->converting your new version of code to old version inorder to work in olders version.
+who converts this code? BABEL
+
+
+console.logs are not directly removed by parcel you need a dependency
+
+npm install -D babel-plugin-transform-remove-console 
+
+when ever u have multiple children you should have keys for each child.
+if there is no key used then reused components should be re-render again frm strt.
+
+RENDER = Update something in the DOM(loading DOM into browser)
+
+JSX = HTML Like syntax in javascript(const heading = <h1>Hello</h1>)
+JSX is Not HTML inside JS
+example HTML = <h1 tab-index="" class="root"></h1>
+		JSX  = <h1 tabIndex="" className="root"></h1>
+		
+How does Js execute JSX?
+Babel(js compiler) converts JSX into javascript(react.createElement("h1")) which converted to HTML.
+JSX => React.CreateElement => Obj => HTML(DOM)
+babel comes along with parcel
+
+Functional component is a function which return JSX
+to render functional component use <Heading/>
+
+to use react component use {} and u can write any js code here {}
+
+const ReactElement = React.createElement("h1",{},"hello");
+const functionalComponent = () => {return <h1>hello</h1>}
+
+U can call functionalComponent as <Heading/> OR {Heading()} [because its a function]
+
+JSX cannot causes any XXS attack
+because JSX sanitizes everything before execute.
+
+Component Composition => component inside a component
+

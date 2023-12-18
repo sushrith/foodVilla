@@ -1,0 +1,31 @@
+where do u need to call the api??
+if u call api anywhere it will call api whenever it is rendered
+call api in useEffect. It is called only the first time when component rendered.
+You can pass second arg in useEffect so that it will call only when that state is updated.
+dependency array -> useEffect 2nd arg
+when empty array passed useEffect will be called once after initial render.
+if pass a state in dependency array when state update render+useEffect will be called.
+
+Shimmer UI resembles the pages actual UI.used for loading.
+
+=> In Jsx
+(Expression produces value and Statement performs action)
+Any js Expression work not js Statement
+
+Statement => {
+   a=10;
+   console.log() 
+}
+
+Expression(Single line without ;) => {console.log()}
+
+Expression => {(a=10),console.log(a)}
+
+Expression {a>b?"a":"b"}
+
+Statement{if(a>b){
+   return "a";
+}else{
+   return "b";
+}
+}

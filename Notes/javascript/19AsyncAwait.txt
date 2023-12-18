@@ -1,0 +1,177 @@
+1) Async - key word used before function to make it async function.
+
+Async function -
+    - Always returns a promise
+    - If u return a non-promise value it will be wrapped into promise and returns it.
+
+example - 
+
+const p = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve("Promise is resolved");     //10 seconds to get resolve
+    },10000);
+});
+
+async function getData(){
+    return p;
+}    
+const dataPromise = getData();
+dataPromise.then((res)=>console.log(res));
+
+2) Async along with Await
+
+await - It is a key word used only inside async function.
+      - This keyword is written inside of promise. 
+
+async along with await is used to handle promises.
+
+Before aync await example:
+
+    function getData(){
+        p.then((res)=>console.log(res));
+        console.log("hello");
+    }
+    getData(); // hello               [.then will be called once promise is reolved(it will be sent to micro task queue)]  
+               // Promise is resolved [event loop will execute tasks from micro task queue only after entire program is complete(call stack is empty)]
+
+After aync await example:
+
+    async function handlePromise(){
+        const val = await p;
+        console.log("hello");
+        console.log(val);    
+    }
+    handlePromise();    // hello               [Since we use await our JS program waits until the promise is resolved]  
+                        // Promise is resolved [After promise is resolved it will print hello and value at same time(10 seconds)]
+
+If u have await p for multiple times it wait for promise reolved for once and rest will be continued as usual. 
+
+
+****Diff btw both(before and after)***
+In before Js Engine wont wait for promise is reolved.
+In after Js Engine waits until promise is reolved.
+
+example -
+p1 - 10 seconds
+p2 - 5 seconds
+
+async function handlePromise(){
+        const val = await p1;
+        console.log("hello");
+        console.log(val);
+
+         const val2 = await p1;
+        console.log("hello2");
+        console.log(val2);    
+    }
+    handlePromise(); // hello 
+                     // hello2
+
+Though 2nd promise is reolved is 5 seconds it will wait for 10 seconds since program executes line by line and it is waiting for p1 to resolve.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+It looks like Js Engine is waiting but its not true.
+If Js engine stops then our page will be frozen but it is not here.
+
+p1 - 5seconds
+p2 - 10seconds
+
+async function handlePromise(){
+        const val = await p1;
+        console.log("hello");
+        console.log(val);
+
+         const val2 = await p2;
+        console.log("hello2");
+        console.log(val2);    
+    }
+    handlePromise(); // hello & val printed at 5 seconds 
+                     // hello2 & val2 printed at 10 seconds.
+
+--------------------INTERNAL WORKING---------------------------------
+
+p1 is promise which takes 5 seconds
+p2 is promise which takes 10 seconds.
+
+when application is started both promises are created.
+
+async function handlePromise(){
+        console.log("started");
+        const val = await p1;
+        console.log("hello");
+        console.log(val);
+
+         const val2 = await p2;
+        console.log("hello2");
+        console.log(val2);    
+    }
+    handlePromise();
+
+Initially callstack is empty then handlePromise is loaded into callstack.
+first line started will be printed.
+in second line it sees await and checks if promise is reolved or not.
+If it is not resolved this handlePromise() is suspended(Move out) from callstack it will not block main thread any other events will be executed.
+After first promise is resolved and if callstack is empty it will be loaded again in callstack.
+it will print hello and val.
+It goes to line 104 sees p2 is not resolved the again move out of callstack.
+when p2 is resolved it comes back into call stack.
+It will start executing from where it left.
+
+Behind the scenes JS must be keeping track of promise(resolved or not) and till which line code is executed n all.
+
+------------fetch and async await---------
+
+const GIT_URL = "https//***********:"
+
+aync function handlePromise(){
+    const data = await fetch(API_URL);
+    const jsonValue = await data.json(); //data.json() returns promise, when u use await the value will be returned into variable. 
+    console.log(json);
+
+    // fetch() => Response.json() => jsonValue
+}
+
+here u dont req .then because our function doesnt executes further until it is resolved.
+in normal promise our program executes further thats why we req .then to know when our promise is reolved.
+
+--------Error handle---------
+In normal promises we will have .catch method for error handling.
+In async await use try catch for error handling.
+
+
+const GIT_URL = "https//***********:"
+aync function handlePromise(){
+    try{
+    const data = await fetch(API_URL);
+    const jsonValue = await data.json(); //data.json() returns promise, when u use await the value will be returned into variable. 
+    console.log(json);
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+handlePromise();
+
+
+or
+// async Always returns a promise.
+//if nothing is returned then when err thrown it will returned as promise.
+aync function handlePromise(){
+
+    const data = await fetch(API_URL);
+    const jsonValue = await data.json(); //data.json() returns promise, when u use await the value will be returned into variable. 
+    console.log(json);
+}
+handlePromise().catch(err=>console.log(err));
+
+
+So which should be used?? async await or promise.then.catch??
+async await internally uses promise.then.catch so both are same only.
+async await is new way of writing code.
+No callbacks, clean code,No promise chaining.
+So better use async await to handle api calls or promises.
+
+
+
+
+

@@ -1,0 +1,6 @@
+Rounds:-
+1) Machine Coding
+2) DS/Algo
+3) Web Tech(Js,pws,service workers)
+4) UI System Design
+5) HR round

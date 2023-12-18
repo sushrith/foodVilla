@@ -1,0 +1,48 @@
+Ways of writing css:-
+1) Normal way (classes and import)
+2) Inline - faster way,No reuseability,hard for browser
+3) Scss(it has features like variables,nested rules & mixin(functions) to increase power of css) (reuseable css)
+4) component Libraries (Bootstrap UI,Material UI,base UI,chakra UI,Ant UI)
+5) Styled components - CSS Inside Js (used in big companies) (example - https://styled-components.com/) - U have to learn & diff way of writing code
+
+Pros n cons of Libraries
+Pros:-
+1) Reuseable
+2) Reduce time
+3) Cosistent UI
+Cons:-
+1)Loose control(lack of personal customization(not work good for mobile stuff))
+2)Bundle size heavy
+
+TAILWIND CSS FRAMEWORK
+- OpenSource
+- Mix of 
+    - Css on the go (faster like inline css)
+    - Reuseability
+    - Less Bundle Size(minimal css)
+    - Flexible UI (Customizable)
+- How to Configure (https://tailwindcss.com/docs/guides/parcel)
+    1)npm install -D tailwindcss postcss(compilation for browser to read tailwindcss)
+    2)npx tailwindcss init (creates a config file for us)
+    3)Inside tailwind config files define which file will be using tailwind
+    4)create .postcssrc files file which tells parcel to bundle of tailwind also
+    5)inside base css u will have 3 lines(in docs) and remove everything
+- Tailwind change lot of default behaviour of html
+- Tailwind says write it in my way it will ovverride everything.
+- It works just with class Names, every css style will be new class Name
+class = "font-bold"
+class = "text-xl" "text-2xl" "text-3xl" "text-sm" "-lg -md" // find classNames in documentation 
+Square Bracket Notation to give dynamic values "w-[200px]"
+
+pros:
+- code is Less
+- no duplicates css
+- bundle time is small
+- faster
+- easy to debug
+- customization
+- everything is done in js file (html,js,css)
+
+cons:
+- High learning curve new developers can take sometime
+- js files look complex (Reuseability is less)

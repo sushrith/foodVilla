@@ -1,0 +1,54 @@
+1) function Statement:- 👍
+function a(){
+    console.log("hello");
+}
+
+2) function Expression 👍
+
+Function acts as a value.
+
+var b = function (){
+    console.log("hello");
+}
+
+diff btw function Statement and function expression is Hoisting
+function Statement is properly hoisted but in 
+function expression it is a variable so it will store undefined.
+
+3) function Declaration 👍
+
+Function Statement is same as function Declaration
+
+4) Anonymous functions 👍
+
+function without a name. // function Statements req a name.
+
+function (){} //Syntax error
+Anonymous functions are used in a place where functions are used as values;
+
+5) NAMED Function Expression 👍
+Same as function expression but here function has a name
+var b = function a(){
+    console.log("asda");
+}
+ a(); //reference error(it is not a function in outer scope)(it is a variable(function))
+ b(); - correct way
+
+6) differece btw parameters & args? 👍
+parameters = Identifiers(get those args are parameters), local variables in function scope
+function a(param1,param2){
+}
+
+values that are passed inside the function are known as arguments.
+a(1,2); //These are args
+
+7) IMP******First class functions****** 👍
+
+ABILITY TO USE FUNCTIONS AS VALUES ARE CALLED FIRST CLASS FUNCTIONS.
+
+functions can be stored,passed & returned to any functions.
+First class functions - Ability to be used like values
+first class citizens.
+
+8) Arrow functions 👍
+

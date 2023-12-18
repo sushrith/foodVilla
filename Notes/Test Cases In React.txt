@@ -1,0 +1,53 @@
+Enzyme - older way
+React Testing Library - New way and best
+React Testing Library - Built on top of Jest which Uses Jest behind the scenes
+
+Why do we need test cases??
+ - There are so many Developers working on 1 project 100s components are integrated
+   Changes done by one developer can break other developer code
+   we write test cases to check if new code is not breaking our existing code.
+ - Adding new features should not break existing features
+ - Maintaintability, Quality of product
+ 
+
+
+-TDD will make development slow.
+How to setup Testing in react??
+ - npx create-react-app will setup automatically
+
+Types of Testing:
+ - Manual Testing - Humans test functioanlity.
+ - Automated Testing - Code Testing a Code.
+    - Selenium Testing - u can write entire workflow of testing (end to end testing)
+    - Syprus - simulate user workflow and check the end to end testing(covers entire user journey)
+      Headless browser - execute test cases faster - it will have same as normal browser but it dont have to paint - kind of actual browser without any UI used for automated testing
+ - Unit Testing - core JOb of developers
+    - if my logo,card,heading loading or not
+    - small components features testing
+ - Integration testing
+    - Testing the integration b/w components
+ - Regression, smoke,performance testing,load,blackbox testing.
+
+---------------------------------------------------------------------------------
+React Testing Library is Part of Testing Library.
+We are Using JEST - JavaScript testing framework.
+1) install jest and react testing Library
+2) configure Jest - npx jest --init(npx because we just want to do it once)(No,jsdom,yes,babel,yes)(it will create jest.config.js)
+3) how to run - npm run test (we get errors jest-env-jsdom)
+4) npm install -D jest-environment-jsdom 
+5) No test cases found __tests__ (create my first test) (__ is known as dunder)
+6) create name.test.js file
+7) Now our js dont recognize import so we need configure jest babel config (npm install --save-dev babel-jest @babel/core @babel/preset-env)
+8) babelrc needs json not js Object. add quotes in config(json dont have single quotes it have double quotes)
+9) our jest dont understant jsx - npm install --save-dev @babel/preset-react ,  so configure this inside babelrc - ["@babel/preset-react", {"runtime": "automatic"}],
+we dont write test code on browser we use jsdom(small container or machine where our test runs) , jest create some env to run test cases.
+__________________________________
+test("NAME OF TEST",FUNCTION)
+inside function we need to have expect
+1) png problem - (inside jest.config.js)  moduleNameMapper: {
+    "\\.png":"./src/components/mocks/dummyLogo.js"
+  },
+
+2) provider problem - import { Provider } from 'react-redux'; (wrap)
+
+3) link problem - import {StaticRouter} from 'react-router-dom/server' (wrap)

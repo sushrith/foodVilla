@@ -1,0 +1,100 @@
+            SCOPE CHAIN
+Scope in js is related to Lexical envirment.
+ 
+When ever execution context is created 
+a Lexical envirment is created.
+
+Lexical env = Local memory + Lexical env of parent***
+Lexical means In hirearchy or In order.
+Like c() is inside a() function and a() is inside global Scope.
+-------------------------------------------------------------------------
+--------------------LET AND CONST in Hoisting----------------------
+
+1) let & const declarations are Hoisted(but are hosted differently than var)
+
+let a = 10;   //memory allocated but stored in diff memoryspace(but u cannot access this space before value initialization)
+var b = 100; //memory allocated and  will be attached to Global object
+Now while memory allocation phase
+>Script ->This will be changed to Block if variable is inside block( {let a=10;})
+    >a:undefined
+>Global
+    >b:undefined
+
+TEMPORAL DEAD ZONE = The time between the memory allocation and initialization
+Since when let variable are hosted and till it is initialized some value.
+You cannot access variables when they are in TEMPORAL DEAD ZONE
+
+2) Let and Const are not attached to Global obj.
+   Let and const are strict:
+    -> cannot make a duplicate of let in same scope(let a = 10; let a = 100)(let a = 10; var a = 100)(Syntax error)
+    -> In const (more strict than let) You cannot reassign value in same scope(const b; b=100)(Syntax err)
+    -> (const b =10;b=100)(TypeError)
+
+Ref Err -> cannot access variable before initialization (cannot access var in memory space)
+        -> variable is not defined.
+
+Syntax Err -> Identifier already been declared.
+            -> Missing Initializer in const declaration.
+Type Err -> Assignment to const variable.
+
+Const >>>> let >>>> var
+
+U can avoid TEMPORAL DEAD ZONE (Shrinking TDZ) by placing all variables at TOP;
+-----------------------------------------------------------------------------------------------------------
+--------------------LET AND CONST in SCOPE----------------------
+--------------BLOCK----------
+1) Block is defined by {}
+2) Block is a compound - it is used to combine multiple js statements into group.
+3) We want to group because we want to use multiple js statements when only one statement is expected.
+if(true)//expects a statement
+but u want multiple statements
+if(true){}
+------------BLOCK SCOPE----
+what are all the variables and functions u can access inside these block is called block scoped.
+{
+    var a=1;
+    let b=1;
+    const c=1;
+}
+
+Global
+    >a:undefined
+Block
+    >b:undefined
+    >c:undefined
+
+Once block is completed then variables inside Block are deleted.
+Thats why Let & Const are Block Scoped.
+
+-> SHADOWING:
+
+var a= 10;
+{
+    var a=100;
+    console.log(a); //100 
+}
+console.log(a); //100 //This doesnt happend with functions since var is function scoped.
+
+variable inside block is SHADOWING(modify the value for var but not for let) variable outside it.
+value is modified because they point to same memory location;
+Since Let & const are are shadowed(but not modified) thats why we recommed to use Let and const more than var;
+
+-> Illegal SHADOWING
+let a =20;
+{
+    var a= 100; //Syntax error : var has already been declared.
+}
+You cannot shadow (let using var)
+shadowing non-strict with strict is OK
+but shadowing strict with NOn-strict is not OK (illegall shadowing)
+Illegal shadowing is not possible because it should not cross boundary of the SCOPE.
+
+This is not Illegal since var is not crossing its boundaries.
+let a = 20;
+function x(){
+    var a = 20; // (boundary of var is function)var is a function scope.
+}
+
+BLock is diff from function.
+Block scope also follows lexical scope pattern.
+arrow functions also follows lexical pattern scope. 

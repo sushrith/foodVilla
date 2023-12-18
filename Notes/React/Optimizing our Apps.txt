@@ -1,0 +1,50 @@
+1) Custom Hook  
+
+when?
+how?
+every hook has its own reconcilication, when that state update it will not rerender its parent but itself.
+why?
+- To export some logic into our functions
+- We should build it for 
+Modularity, // broken down code into meaningful pieces(every component has its own responsibility)
+reuseability, Testable // keep common code in utils,u can write test cases for invidual code
+readability and 
+maintainability // easy to debug
+Wrapup small logic inside a function and use anywhere
+
+Hook is a function (use should be present infront)
+
+Window event online // used for check if online or not js eventListner
+
+
+2) chunking /or/ Code splitting /or/ dynamic bundling /or/ lazy Loading /or/ On Demand Loading /or/ Dynamic Import
+when u have 100s of components js file created by bundler will be very huge which decrease the performance of application
+bundling is good to a limit.
+You have to make Logical bundling.
+- For example in make my trip when u click flights it should flight bundle,when u click train then it should load train bundle
+How to split the bundles?
+- const Instamart = lazy(()=> import("./components/Instamart"))
+when Instamart is not clicked our bundler doesnt have Instamart
+when Instamart is click parcel will create new Instamart.js file and load it.
+So bundler created bundled code and load it to browser on demand.
+
+error(on first load)(because our application is still a SPA):
+- when u try to load component onDemand React tries to suspend it.
+Since our new js file is created on demand it take some time to load in the mean time react tries to render it and it suspends it 
+- React tries to render the componets that are not ever present so it suspend the rendering
+- Upon on demand loading -> upon render -> suspend
+How to overcome this error??
+- React has something known as Suspense
+- Where ever u load the component wrap it inside Suspense
+- <Suspense><Instamart/></Suspense>
+// React will wait until js file is loaded to browser after that component will be rendered.
+//lazy(()=> import("./components/Instamart")) is a promoise so react will wait until it is resolved.
+// show shimmer util it is loaded.
+how to do that?
+<Suspense fallback={<Shimmer/>}><Instamart/><Suspense/>
+
+Never ever lazy load a component inside another component.
+const App = () =>{
+    const Instamart = lazy(()=>import(**))
+}
+DONT DO THIS if u do it will lazy load on every render.

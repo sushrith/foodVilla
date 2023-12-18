@@ -1,0 +1,88 @@
+Closure = A function bind together with its lexical envirement.
+function along with lexical scope forms a closure.
+function x(){
+    var a = 7;
+    function y(){
+        console.log(a);
+    }
+    y();
+}
+x();
+
+in browser u can see:
+local
+    this: window
+Closure(x)
+    a:7
+Global
+
+function y forms a closure with variables presnet in its lexical scope.
+
+functions can be passed,returned,args etc;
+
+IMP **) When you return a functions out of its scope but still it remembers its lexical scope.
+function x(){
+    var a = 7;
+    function y(){
+        console.log(a);
+    }
+    return y; // Here not only y returned it retured the closure(lexical scope)
+}
+var z = x(); //function y(){console.log(a);} this will be returned.
+z();
+
+after completing x() call its Execution context is deleted.
+but the magic is even after EC is deleted even var a is deleted 
+still z remembers the value of a because it formed a closure with x.
+
+In other lexical env also functions still remeber its own 
+lexical env where it came from.
+
+Tricky 1 👍
+Value is not remebered but reference is remebered.
+function x(){
+    var a = 7;
+    function y(){
+        console.log(a);
+    }
+    a = 100;
+    return y; 
+}
+var z = x(); 
+z(); ------> y remembers reference to a (since a was changed so value is 100)
+
+Tricky 2 👍
+
+function z(){
+    var b = 100;
+    function x(){
+        var a = 7;
+        function y(){
+            console.log(a,b);
+        }
+        y(); 
+    }
+    x();
+}
+z();
+
+ans is:
+7 100
+
+Now y+scope forms closure with x+scope so z() also forms in closure since both are in its lexical scope;
+if u return y even after z completed it EC variable b and a are not garbage collected they are retained.
+
+
+woooohhh this is awesome.
+
+FUNCTION REMEMBER THINGS.
+
+Uses of closures:
+1) Modular design patterns
+2) currying
+3) functions like Once
+4) memoize
+5) maintainng state in async world
+6) set timeouts
+7) Iterators
+and many more..

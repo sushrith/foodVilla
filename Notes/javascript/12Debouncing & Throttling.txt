@@ -1,0 +1,107 @@
+1) What is Debouncing?? (make API calls when there is pause)
+
+senario:-
+In a searchbar in shopping site when ever you enter some text
+it will give you suggestions.
+It will not make api call for every keystroke. When ever you give a pause
+it will take that txt and give you suggestions.
+
+example:-
+If enter school pause schoolbags
+it will make 2 api calls one to get results for school
+other api call is get results for schoolbags.
+
+This helps in performance optimization.
+
+how to do it?? (amazing example)
+
+<input type="text" onkeyup="getBetterFunction(value)"/>
+
+function getData(args){
+    console.log("make an api call with args ...."+args);
+}
+
+
+function doSomeMagic(fn,delay){
+    let timer;
+    return function(...args){
+        clearTimeout(timer);
+        timer = setTimeout(()=>{
+            fn.apply(this,args);
+        },delay)
+    }
+}
+
+let getBetterFunction = doSomeMagic(getData,300); // 300ms is delay
+
+
+analyze this doSomeMagic function which is called as debounce method.
+when ever you press a key and wait for 300ms then api will be called
+if you press another key before 300ms then our timout be cleared and new timeout will be created. 
+
+senarios:
+1) Search in shopping to get suggestions(make api calls).
+2) Api calls on scroll event or lazy loading on scroll event.
+
+------------------------------------------------------------------------------------------------------------------------------
+What is Throttling?? (performance optimization or Ratelimiting the function calls)
+
+senario:-
+There is a button on click of button an api call is made.
+If user clicks it 100s of time then 100 api calls are made.
+
+what we have to do is to Limit this Rate Using Throttling.
+
+You can Use Throttling on OnClick method and hinder the calls on onclick method.
+If u click on button if will make an api call and u can 
+set a delay that only if u click after 10 seconds then only another api call can be made.
+
+| | | | | | | | | | | |
+FC--delay--FC--delay--FC    
+
+So after first function call u can make only next function call after some delay in time.
+This will reduce the number of API calls.
+Throttling the Network Calls. Limiting the rate of this onClick method which it is called.
+
+How to Implement:-
+
+const expensive = funtion(){
+    console.log("make some api call.....!!!");
+}
+
+const betterExpensiveCall = throttle(expensive,Delaylimit);
+
+const throttle = function(fn,delay){
+    let flag = true;
+    return function(...args){ // because of closure inner function will remember reference to flag;
+    let context = this;
+    let arguments = args;
+    if(flag){
+            fn.apply(this,arguments);
+            flag = false;
+            setTimeout(()=>{
+                flag = true;
+            },delay)
+        }
+    }
+}
+
+<button onclick="betterExpensiveCall()">Call to API</button>
+
+------------------------------------------------------------------------------------------------------------------
+                Diff btw Debouncing and Throttling??
+
+These are used in performance optimization & Rate limiting of certain calls.
+Debouncing - Searching(keypress) 
+Throttling - Clicking button many times.
+
+Resizing the window - depends on usecase go for the approch.
+In debounce - When ever there is a pause in resizing it will make apicalls
+In Throttling - user is fastly or slowly scroll(doesnt matter) only make api calls after few milli seconds.
+                
+In a shooting game to reduce number of calls what will you use??
+in debounce -> when pause btw shoots then call is made
+in Throttling -> shoot after every few milli seconds
+for this situation Throttling is best.(maching gun 100ms,pistol 500ms)
+
+for scroll events u can use Debouncing & Throttling

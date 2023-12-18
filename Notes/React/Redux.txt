@@ -1,0 +1,97 @@
+How to manage our data effciently?
+ - Redux (Library)
+
+Why? Manage our data layer
+contextAPI -(example - it can be used for light and dark theme) Handle Global state avoid prop drilling - any component in app can access and modify context
+When Application grows a lot context is not helpful
+Redux is used for bigger Applications to handle data
+
+REDUX [Only use when Application is big not small] - handle managing,reading,modifying data 
+used for dataManagement
+
+- Cons REDUX:
+ - Very complex to setup
+ - Huge Learing curve
+ - Complicated
+ - Lot of copy paste
+- To overcome these problem Redux came up with Redux Toolkit
+
+Redux Toolkit will fix common problems of redux:
+1) Configuration is too Complicated
+2) lot of packages to be added to get redux to do anything useful
+3) Redux requires too much boiler plate code.
+---------------------------------------------------------------------
+REDUX TOOLKIT (Building cart page)
+    - New way of writing Redux
+
+Architecture of Redux:
+
+1) Redux Store - (At the End of day it is big all Object) [ just like context ]
+    - Big object with small context
+    - All components will be able to access redux Store (Not tied to any component)
+    - Store is seperate entity in Application (Webapp is diff and store is diff)
+    - We cannot have multiple store (Single store will store everything with lot of data)
+    - we will Slices(Portion of store) of our store (Logical Seperation)
+    - example - UserSlice,ThemSlice,CartSlice,AuthenticationSlice
+
+- Our components cannot directly modify Store You need to dispatch an action.
+- Why cannot be directly modify store?
+when there is a large Application u dont want random components to randomly modify store u need to keep track of everything.
+
+- Process to Update data which will be tracked(Good way)
+
+******** IMP *******
+Menu    Action   function      Store                            Read        
+(+) => AddItem => ()=>{} => Modify our cart(Slice of Store) => Selector => Update Cart
+********************
+
+Above function is known as Reducer
+2) Reducer - It is a function which updates the slice of Store
+
+*** WHEN YOU CLICK ON + ICON WHICH WILL DISPATCH AN ACTION WHICH CALLS THE REDUCER FUNCTION WHICH UPDATES THE SLICE OF THE STORE.***
+Jarguns:
+1)Dispatch 2)Action 3)Reducer-Function 4)Slice 5)Redux-Store
+
+How to Read from store?
+1)Selector -> Hook -> To Read data (If u want to read cart) -> It will give information from store.
+It is named as Selector because you are selecting the slice of store.
+Selector is used for Subscribing to Store
+Cart Component has Subscribed to the store(Cart is in Sync with store)(Reading from store)
+When Store is updated cart will be automatically updated.
+
+*********** IMPLEMENTATION SEE OUR CART FEATURE *******
+1) npm i @reduxjs/toolkit - Core Library which is used to manage/maintain store
+2) npm i react-redux - Bridge between react and redux
+
+ - configureStore() - create a store
+Application is diff and store is diff you need to tell components that this is redux-store.
+import {Provider} from 'react-redux';
+ - <Provider store={store}></Provider>
+ - createSlice() - to create slice inside store
+    - Inside slice u need have name,initialState,reducers(this will not return anything,jst take a state and modify it directly)
+- put the slice in store (you need to put reducer to the store)
+    configureStore({
+        reducer:{
+            cart: cartSlice;
+        }
+    })
+- (Subscribe to a slice of store(inside slice u can Subscribe to single array so that it will improve performance), Go to any component, it give access to store them u can Subscribe to any slice) 
+    const cartItems = useSelector(store => store.cart.items);
+
+- If your cart is Subscribe to store everytime store changes cart will change which will rerender cart when ever store changes.
+
+- Dispatch Action
+ const dispatch = useDispatch();
+ const handleAddItem = () => {
+    dispatch(addItem("Grapes"))
+    }
+
+Redux DevTools - chrome extension(Very powerful)
+    - 
+
+
+RTK(Redux toolkit - extra topics) 
+1) RTK query
+2) Thunk
+3) Middleware
+4) Caching

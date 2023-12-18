@@ -1,0 +1,41 @@
+Js can run everywhere -> browser,server watch any device etc.
+All this is possible because of 
+JavaScript Runtime Environment(which has all the things req to run js code).
+1) Js Engine
+2)Apis
+3)Callback queue
+4)MicroTask queue
+5)Eventloop
+browser,Nodejs(These have Js Runtime Environment) 
+
+------------JS ENGINE----------
+It is not a machine.
+It is a program.(in v8 chrome Engine it is built using c++)
+How it works??
+
+1) It takes our JavaScript Code (Human redable code)
+      |      
+2) Parsing (code is broken into tokens)
+    syntax parser (generates)-> Abstract syntax tree(passed)->Compilation Phase
+      | 
+3) Compilation 
+       -Interpreter(fast)(code is executed line by line without knowing next line)     
+       -Compiler(Efficiency)(code is compiled first converted into optimized version and then executed) 
+    JavaScript can behave has Interpreted Language as well as compiled Language it depends on js Engine.
+(In Mondern browsers)Js Uses = Interpreter + Compiler
+
+JIT Compilation = Interpreter + Compiler
+
+In JIT Compilation while Interpreter goes line by line our compiler optimizes the next lines
+so these both goes hand in hand. AOT ahead of time Compilation it takes a piece of code and tries to optimize it which is excuted in future
+it also produces the byte code which goes to Execution phase.
+4) Execution
+Execution Phase:
+Memory Heap(garbage collector free up space(Mark & Sweep algo)) 
++ 
+CallStack
+
+    Compiler does optimizations like
+    1) In-lineing.
+    2) Copy elision.
+    3) Inline Caching.

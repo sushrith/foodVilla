@@ -1,0 +1,31 @@
+React.Fragment => Component exported by react <React.Fragment></React.Fragment> or <></> (use it instead of div and having single parent)
+
+Jsx can have only parent
+
+Config Driven UI => UI is driven by config sent by backend(API) to make it dynamic.
+
+Optional chainging ?
+
+map vs foreach?
+
+React uses virtual dom to be faster
+we have DOM and Virtual DOM(Representation of DOM)
+There is a Reconciliation algorithm which finds diff btw trees
+and update only that part of tree it will not render whole tree when update
+If there is change in a component then rerender only that compontent and children not whole thing.
+
+if a component has 4 children| during update new child was introduced
+1   2    3   4   			 | 5 	1 	2	3 	4
+Then react dont know which child was new so it will render all childs.
+But it u use key(unique) for each child then react can identify which has been introduced then only that child will be rendered it will be sooo fast.
+
+Imp-> When ever state updates virtualdom will be updated
+diff algorithm will compare current and previuos virtualdom
+and update the diffrenece in actual dom which will be shown in UI
+Thats why react is faster. [FAST DOM MANIPULATION]
+
+In React 16 diff algorithm changed and introduced react fiber new reconciliation engine responsible for diff
+
+why dont we use index as key??
+never use index as key
+No key << index key <<<<<<< Unique key(best practise)  

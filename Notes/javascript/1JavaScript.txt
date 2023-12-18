@@ -1,0 +1,56 @@
+*******Everything in JavaScript happens inside an Execution Context*******
+
+---------------------------------------------------
+Memory(Variable env) | Code(Thread of Execution) 
+---------------------------------------------------
+Key : Value          |  Code executed line by line
+a : 10               |
+fn: {....}           |
+----------------------------------------------------
+
+JavaScript is a Synchronus Single-threaded Language
+Single Thread = one command at a time
+Synchronus = in a specific order(nextline only after current line executed)
+
+When ever a js program run Execution context is created
+Execution Context is Created in 2 phases:(Scrrenshot for more clarity)
+1) Memory Creation (js executes line-by-line)
+
+------------------------------------------------------------------------
+Memory(Variable env) | Code(Thread of Execution) 
+-------------------------------------------------------------------------
+n : undefined                               |  
+square : {....}(Whole code for function)    |
+square2: undefined                          |
+square4: undefined                          |
+-------------------------------------------------------------------------
+
+2) Code Execution (js executes line-by-line)(fun executed and calc done)
+function invokation is done
+------------------------------------------------------------------------
+Memory(Variable env) | Code(Thread of Execution) 
+-------------------------------------------------------------------------
+n : 2                       |  when fun is invoked(mini program is executed)
+                               New exection context is created for function invokation 
+square : {...}              |
+square2: undefined          |
+square4: undefined          |
+-------------------------------------------------------------------------
+
+After program/function is complete Execution Context will be deleted.
+
+***Creation/deletion in exection context is handled using call Stack*****
+|      |
+|      | 
+|Execution Context 2| popped
+|Execution Context 1| popped give handle to GEC
+|Global Execution Context|
+
+Call Stack/program stack/control stack/runtime stack/Execution context stack
+Call Stack maintains the order of exection of exection contexts
+
+
+
+
+
+

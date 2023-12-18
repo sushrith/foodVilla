@@ -1,0 +1,143 @@
+let name = {
+    firstname:"sushrith",
+    lastname:"bondugula",
+    printFullName: function(){
+        console.log(this.firstname+" "+this.lastname);
+    }
+}
+
+name.printFullName();
+
+let name2={
+    firstname:"sachin",
+    lastname:"tendulkar",
+}
+
+let printName = function(hometown){
+    console.log(this.firstname +" " +this.lastname + hometown);
+}
+
+// function borrowing
+name.printFullName.call(name2);
+1) CALL => Invoke function directly by passing refernce and , seperated args
+(function).call(refernce(this should be pointing to which object))
+ 
+call => u can point this inside function to any refernce using call method of function.
+
+printName.call(name2,"Nizamabad");
+
+
+2)Apply => => Invoke function directly by passing refernce and arrayList args
+same as call but
+only diff between call and Apply is the way we pass argurments.
+in call we pass args as , seperated values.
+in apply we pass args in array.
+
+printName.apply(name2,["Nizamabad"]);
+
+3)Bind => does not invoke immediatly gives copy of same method which can be invoked later.
+same as call but
+Only diff is it creates a 
+copy of function 
+and bind them with object & args 
+and returns a function which can be called later.
+
+let printMyName = printName.bind(name2,"Nizamabad");
+console.log(printMyName());
+
+--------------------------------------------------------
+                        polyfill for bind method
+
+What are the polyfills in JavaScript?(converts new code to older code so that old browsers understand)
+A polyfill is a piece of code (usually JavaScript on the Web) used
+to provide modern functionality on older browsers that do not natively support it.
+        or
+polyfill => It is like browser fallback (if browser doesnot have bind then create your own method)
+
+
+EXAMPLE WITH BIND:-
+
+let name = {
+    firstname:"sushrith",
+    lastname:"bondugula"
+}
+
+function printName(){
+    console.log(this.firstname+" "+this.lastname);
+}
+
+let printMyName = printName.bind(name);
+console.log(printMyName());
+
+SAME EXAMPLE WITHOUD BIND:-
+
+let name = {
+    firstname:"sushrith",
+    lastname:"bondugula"
+}
+
+function printName(hometown,state){
+    console.log(this.firstname+" "+this.lastname+" "+hometown+" "+state);
+}
+
+Function.prototype.mybind = function(...args){
+    return function(...args2){ //our printName function can also recieve args
+        let obj = this; // this will be pointing to printName function
+        const params = args.slice(1); // you recieve an array here so use apply.
+        obj.apply(args[0],[...params,...args2]); //from args u can get all args. //when inner function i called it should invoke method immediatly
+    }   
+}
+
+let printMyName = printName.mybind(name,"Nizamabad");
+console.log(printMyName("telangana"));
+
+----------------------------------------------------------------------
+                                Function Currying
+
+2 ways to do is:
+1) using bind functions
+2) using closures.
+
+Example: 
+1) using bind
+let multiply = function(x,y){
+    return x*y;
+}
+
+let multiplyByTwo = multiply.bind(this,2); //first arg will alway be 2
+multiplyByTwo(10);
+
+let multiplyByThree = multiply.bind(this,3); //first arg will alway be 3
+multiplyByThree(10);
+
+multiply can be used for multiplying by 2 or 3. This is called as function Currying.
+
+2) using closures
+
+let multiply = function(x){
+    return function(y){ //this forms a closure with x;(remebers x even after returning)
+        console.log(x*y);
+    }
+}
+
+let multiplyByTwo = multiply(2);
+multiplyByTwo(5); //10
+
+
+let multiplyByThree = multiply(3);
+multiplyByThree(5); //15
+
+3) Infinite Currying
+
+let multiply = function(x){
+    return function(y){
+        if(y){
+            return multiply(x*y);
+            }
+        else{
+            return x;
+        } 
+    }
+}
+
+let ans = multiply(2)(3)(4)(5)();

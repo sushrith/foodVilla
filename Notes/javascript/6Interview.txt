@@ -1,0 +1,111 @@
+closure = function with refernce to its outer env together forms a closure
+combination of function and its lexical scope budled together.
+
+example:-
+
+function outer(){
+    var a = 10;
+    function inner(){
+        console.log(a);
+    }
+    return inner;
+}
+
+function outer(){
+    function inner(){
+        console.log(a);
+    }
+    var b = 10;
+    return inner;
+}
+
+outer()();
+even if inner is executed outside scope it still remebers refernce to a;
+
+example
+function outest(){
+    var c=20;
+    function outer(b){
+        function inner(){
+            console.log(a,b,c);
+        }
+        var b = 10;
+        return inner;
+    }
+    return outer;
+}
+let a = 100;
+var close = (outest())("helloworld")
+close();
+// 10 "helloworld" 20
+if 37 is commented then output of a will be 100;
+
+Advantages:
+1) module patterns
+2) function curring
+3) higher order functions
+4) data hiding and encapsulation = if we have a variable we want to have data privacy on it other functions or part of programs cannot access it.
+
+example;
+
+var counter = 0 ;
+function incrementCounter(){
+    counter++;
+ }
+Now any one who calls incrementCounter can increment counter;
+But we want only incrementCounter() function should be able to increment not others.
+
+function counter(){
+  var count = 0 ;
+    return function incrementCounter(){
+        count++;
+        console.log(count);
+    }  
+}
+
+now count variable is hidden no one can directly modify count.
+var counter1 = counter();
+counter1(); -> increment counter
+counter1(); //2
+
+var counter2 = counter(); //it forms a new closure and new count will be used
+counter2(); 1 -> increment counter
+
+GOOD WAY IS TO USE CONSTRUCTOR functions
+-->
+function counter(){
+    var count = 0;
+    this.increment = function(){
+        count++;
+        console.log(count);
+    }
+    this.decrement = function(){
+        count --;
+        console.log(count);
+    }
+}
+var counter1 = new counter(); //since it is a CONSTRUCTOR function we have to use new key word to get access to this variables inside functions
+counter1.increment();
+counter1.decrement();
+
+DISADVANTAGES:
+1) Over consumption of memory => every time when closure is formed those variables are not garbage collected(if not handled properly it can cause memory leaks which can freez the browser)
+
+garbage collector => it is a program in the browser or js engine which frees up the unutilized memory.
+in high level program like js everything eill be done by js engine.
+
+After forming closures unutilized variables are not garbage collected even after completion of that particular function.
+
+Latest version of js engine Smartly collects garbage variables means
+example:
+function a(){
+    var x =10,z=20;
+    return function b(){
+        console.log(x);
+    }
+}
+var y = a();
+y();
+
+Though both x and z forms a closure z will be garbage collected because our js engine understands that it is unsed.
+

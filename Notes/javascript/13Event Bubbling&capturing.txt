@@ -1,0 +1,49 @@
+Event Bubbling and capturing are two ways for Event propagation in DOM Tree.
+
+Senario:-
+-----------------------
+div #grandparent -> onClickGrandParent()
+-----------------
+  div #praent    ->  onClickParent()
+-------------
+    div #child    -> onClickChild()
+
+In Bubbling - Upward direction
+
+If a child is clicked then onClickChild is called , onClickParent is called and onClickGrandParent is called in this order.
+if praent is click then onClickParent,onClickGrandParent is called.
+
+
+In capturing/Event trikkling  - DownWard direction
+
+if u click grandparent then onClickGrandParent is called.
+if u click parent then onClickGrandParent and onClickParent is called.
+if u click child then onClickGrandParent,onClickParent & onClickChild is called.
+How to Use???
+
+document.getElementById("child").addEventListner('click',()=>{
+},useCapture(true/false))
+
+here useCapture decides to use Bubbling or capturing.
+by default/false - Bubbling
+true - capturing
+
+if few of handlers have false and few have true;
+Always First capturing happens then Bubbling happens.
+
+grandparent - true //Capturing
+praent - false //Bubbling
+child - false //Bubbling
+
+So when clicked child then all three are involved so for all three
+first capturing is happend from top to bottom
+grandparent will print first
+then No capturing left so Bubbling start from bottom to up.
+child will call second
+parent is called last.
+
+How to stop propgating events up the hirarcy or down the hirarcy??
+- inside eventlistner we can use ((e)=>{ e.stopPropagation();})
+if e.stopPropagation() is added to parent.
+in case of Bubbling child , parent will be called but not grandparent since parent has stopped propagation going up.
+in capturing child wont be printed when click on child because parent wont propagation down.

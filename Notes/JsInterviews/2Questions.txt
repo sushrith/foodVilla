@@ -1,0 +1,53 @@
+1) Comment Widget - flipkart - 1.5hrs
+----------------------------
+Create a comment section 
+- comment box
+- comment button
+- on click commentbutton it comes down
+- comment can be nested at any level (Reply to comment)
+- edit these comments
+- delete this comment
+- child comments should be deleted if parent deleted.
+
+
+2) Todo List App - 2hrs
+----------------------------
+    Todo    WOrking     Finished
+
+* List of Tasks
+* Tasks
+* edit listname
+* edit or delete a Tasks
+* drag and drop functionality(shifting to any list)
+
+
+3) Food Ordering App 
+----------------------
+* Data fetch from API
+* photo,desc,rating,ETA,Menu - card
+* Responsive site(well working in mobile)
+* Search restaurants
+* Sort acc to name,rating,eta.
+* Tags to restaurants(filtering based on chinees,indian etc)
+
+4) Email web App - outlook - 1.5 hrs - Mircrosoft interview
+--------------------------------
+INbox | emails| Detailed Description
+sent  |       |   
+Drafts|       |   
+
+* email,desc , Read/Unread
+* persist State -> localstorage
+* Unread/Read mail count
+* delete an email & favourite email
+
+
+5) Sudoko Game implementation
+
+6) Comparision website
+
+* photos
+* Descriptions 
+or
+* github profile differences
+* Responsiveness

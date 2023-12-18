@@ -1,0 +1,77 @@
+Higher Order functions??
+A function which take a function as argument or returns a function is called Higher Order Function.
+
+function x(){
+    console.log("Namaste");
+}
+
+function y(x){
+    x();
+}
+// x is a callback function and y is a Higher Order function. 
+
+Advantages:
+Reusable
+modularity
+
+Break down logic to simple functions.
+
+Array.prototype.calculate = function(arr,logic){
+    your logic ....
+}
+
+when you use prototype this function will appear in all arrays.
+-------------------------------------------------------------------------------------
+MAP, FILTER, & REDUCE -> HIGHER Order functions
+
+These are used to transform arrays.
+1)
+map => returns new array after transformation
+       map accepts a callback function.(logic to transform element);
+
+number to binary => x.toString(2);
+
+    arr.map((x)=>x.toString());
+
+2)FILTER
+it is used to filter the values in array.(original array will be filtered)
+filter accepts a callback function.(logic to function which returns boolean for element)
+
+arr.filter((x)=>(x%2==0));
+
+3)REDUCE
+It is used to come up with a single value from the array.
+only single value is returned but array remains same.
+
+arr.reduce((accumilator,current) => accumilator+current);
+or
+arr.reduce(function(acc,curr){
+    acc=acc+curr;
+    return acc;
+},0); //0 is initial value of acc.
+or (find max)
+
+const output = arr.reduce(function(max,cur){
+    if(cur>max){
+        max=cur;
+    }
+    return max;
+},0)
+
+current will be each element of array.
+accumilator is like sum where all values will be added to sum.
+
+Find names of people have age less than 30;
+
+Chaining:-
+
+const output = users.filter((x)=> x.age<30).map(x=>x.firstName);
+ or use reduce
+const output = users.reduce(function(acc,curr){
+    if(curr.age<30) acc.push(curr.firstName);
+    return acc;
+},[]);
+
+
+filter will filter out array into objects with age less than 30
+map will check for each object to return a firstname.

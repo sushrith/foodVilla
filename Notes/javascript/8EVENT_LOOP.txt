@@ -1,0 +1,98 @@
+IMP:-
+1) what ever comes inside callstack will be quickly executed
+   It doesn't wait for anything.
+   callstack doesnt have a timer. 
+
+Browsers:
+our Browsers have many things inside It
+1) Javascript engine(This only have callstack)
+2) timer
+3) Local storage
+4) Bluetooth & geoLocation
+and many more....!!
+
+So to access all these in our Js Engine we can use WEB APIs(These are not part of Javascript)
+window
+    1)setTimeout()
+    2)DOM APIs (document.getElementById)
+    3)fetch()
+    4)LocalStorage
+    5)console (console.log)
+    6)Location
+
+All these functionalities you get it inside Javascript Engine because of 
+"Global Object - window".
+
+To use timer -> use window.setTimeout(),window.LocalStorage()
+since window is a global Object you dont need to mention window while using them.
+
+
+- EventLoop && Callback queue by example:- 💯💯💯💯💯💯
+
+console.log("start");
+    setTimeout(function cb(){
+    console.log("Callback")
+    },5000)
+console.log("end);
+
+   Since console is a web api it is present in global Object. inside Javascript Engine
+   inside callstack GEC is created.
+   1 console - start
+   2 Takes Callback from setTimeout and registers a Callback (It will be registered in webAPIs Env),using delay it will also starts timer.
+   3 console - end
+   4 After timer completed our callback function is pushed to callback queue.
+     Here EventLoop act as gatekeeper which checks if anything present in callback queue.
+     and it takes function from queue and pushes it to callstack which immideatly executes. 
+
+
+addEventListener -> Registers a callback on event(It will be registered in webAPIs Env).
+event listner stay in webAPIs env until we explicitly remove it.
+when u click it will push cb to event queue and eventloop will put it in callstack which will be executed immideatly.
+
+EventLoop => Monitors callstack and callback queue(Task Queue)
+when ever callstack is free it puts cb from queue to stack and make it run immideatly.(This is called as concerrecny model in Js)
+_______________________________________________________________________
+
+fetch() -> webApi used to make API calls. (it works diff from other APIs)
+after promise is resolved Callback will be put into microTask Queue which has higher priority than Callback Queue.
+All cbs inside microTask queue are executed first then go to callback queue.
+These microTask Queue tasks and Callback Queue tasks are executed only when our call stack is free.
+our callstack will be free only after executing all lines of code one by one.
+
+example:
+
+console.log("start");
+
+setTimeout(function cbt(){
+    console.log("Timer");
+},5000);
+
+fetch("https://dummyapi.com").then(function cbf(){
+    console.log("fetch");
+})
+
+console.log("end");
+
+Result:
+start
+end
+fetch //since it is pushed to microTask queue it is executed first.
+timer //since it is pushed to callback queue it is executed later.
+
+EventLoop Monitors both microTask Queue and callback Queue(Task Queue) and CallStack.
+
+what goes into microTask Queue????
+1) Callbacks from promises
+2) Mutation Observers.(keeps on observing if any dom changes or not)
+If any mutation is done in DOM Tree it will executes callback function.
+
+Also there is a possibility of starvation of task inside callback queue.
+if microTask queue tasks keep on increasing then task in callback que will starve.
+
+how to block main thread??(you are blocking main thread for 10 seconds)
+
+let startDate= new Date().getTime();
+let endDate = startDate;
+while(endDate<startDate+10000){
+    endDate = new Date().getTime();
+}

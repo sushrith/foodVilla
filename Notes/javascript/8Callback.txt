@@ -1,0 +1,101 @@
+1) What is callback function in JavaScript???
+function are first class citizens they can be used as value.
+function passed to a function and using that passed function is called a callback function.
+Very powerful give access to async world in synchronous single threaded lang.
+
+function x(){
+
+}
+
+x(function y(){ //function y is callback function.
+                // function y can be used sometime later in our code.
+                
+})
+
+async example:-
+
+setTimeout(function(){
+    console.log("timer"); //callbackfunction
+},5000);                  //this callback function is not called immediately.
+                         // It is called later(async nature)  
+function x(y){
+    console.log("x");
+    y();
+}
+x(function y(){
+    console.log("y");
+})
+
+ans : x y timer
+-------------------------------------------------------------------------------------------------
+Js has single callstack which is main thread.
+
+If any operation blocks this call stack that is known as "Blocking the main thread".
+If an operation takes 20-30seconds since js has one callstack and one main thread all other lines of code will be stopped.
+Thats why we should not block callstack.
+We should use async operations which takes time.
+
+setTimeout+callbackfunction = gives access to async operations
+------------------------------------------------------------------
+callback + closures
+
+onClick button u need to increase the count;
+1)
+let count = 0;
+document.getElementById("clickMe").addEventListener(
+    "click",function xyz(){
+        console.log("Button Clicked",++count);
+    }
+)
+
+2) Callback function forms a closure with count variable it remebers the value.
+function click(){
+    let count = 0;
+    document.getElementById("clickMe").addEventListener(
+        "click",function xyz(){
+            console.log("Button Clicked",++count);
+        }
+    )}
+click();
+
+event listerner forms closure and dont free up Thats why remove event listerners 
+when u dont use them.
+
+-----------------------------------------------------------
+                CALL BACK - PART 2
+
+callback plays an very imp role in aync programming.
+ - settimeouts.
+
+*** PROBLEMS WITH CALLBACKS ***
+
+const cart = ["shoes","pants","kurta"];
+
+api.createOrder(cart,function(){
+        api.proceedToPayment(function(){     //callback
+            api.showOrderSummary(function(){ //callback
+                api.updateWallet()           //callback
+            })          
+        }) 
+})
+
+after createOrder then proceedToPayment then showOrderSummary 
+by this you can decide order only after completing one task.
+
+when Code become complex and callbacks increase we fall into callback hell.
+*-*) PROBLEM IS CALLBACK HELL...OR.....PYRAMID OF DOOM
+
+
+api.createOrder(cart,function(){
+        api.proceedToPayment()
+})
+
+Here we are trusting createOrder api that it will call our callback when work is done.
+But it is external code it may cause issues like our callback never called or called twice etc.
+This problem is known as 
+*-*)  INVERSION OF CONTROL
+
+How to Solve???
+Using Promises
+
+

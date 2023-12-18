@@ -1,0 +1,96 @@
+In 8th part callback.txt we have discussed problems in callbacks.
+1) CALLBACK HELL/PYRAMID OF DOOM
+2) INVERSION OF CONTROL
+
+We can handle these problems using Promises.......
+
+example -  
+const cart = ['shoes','pants','kurta']
+createOreder(cart,function(orderId){
+    proceedToPayment(orderId);
+});
+
+u can avoid this and write as
+
+const promise = createOrder(cart);
+
+*) createOrder is an async operation which takes some time 
+will return us {data:undefined} initially later after opertaion is done
+it will return us {data:orderDetils} this is exactly what promise is.
+
+promise.then(function(orderId){
+    proceedToPayment(orderId);
+})
+
+*) promise has .then method which takes in callback and will be executed
+after promise has been resolved.when data is filled .then is called only once automatically.
+
+
+How our newer code is better??
+1) we used to pass our callback to external api trusting that it will call.
+but now we dont have that problem. We have control of our program.
+
+example- 
+
+fetch function returns us a promise.
+promise objects are immuatable.
+promise has 3 states : 1) pending 2) fulfilled. 3) rejected.
+
+const GITHUB_URL = "https:github.com/sushrith"
+
+const user = fetch(GITHUB_URL);
+user.then(function(data){
+    console.log(data);
+})
+
+what is promise??
+promise object is placeholder for a certain period of time until we recieve a value from async operation.
+or 
+A container for a future value.
+or(perfect)
+A promise is an object representing the eventual completion or failure 
+of an async operation.
+
+How to solve callback hell problem??
+        - Using Promise Chaining
+    ----------------------------------
+        createOrder(cart)
+        .then(function(orederId){
+            return proceedToPayment();
+        })
+        .then(function(PaymentInfo){
+            return showOrderSummary();
+        })
+        .then(function(){
+           return updateWallet();
+        });
+
+In Chaining which ever you return will be passed to next chain.
+.catch() at end of chain will handle all errors.
+if it is below 1 then only 1 promise err will be catched.
+catch ke baad then hua to it will be definetly will be called.
+-----------------------------------------------------------------------------------------
+    Create your own promise:
+
+function createOrder(cart){
+    const pr = new Promise(function(resolve,reject){
+
+        if(!validateOrder(cart)){
+            const err = new Error("Cart is not Valid");
+            reject(err);
+        }
+        
+        const orderId = "1234"; //DB call and get it
+        if(orderId){
+            resolve(orderId); //after resolve orderId will be in callback function
+        }
+    });
+    return pr;
+}
+
+createOrder(cart)
+        .then(function(orederId){
+            console.log(orederId);
+        }).catch(err=>{
+            console.log(err);
+        })

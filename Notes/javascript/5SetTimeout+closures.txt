@@ -1,0 +1,74 @@
+settimeout => will execute function after those many seconds
+
+function x(){
+    var i =1;
+    setTimeout(()=>{
+        console.log(i);
+    },3000);
+    console.log("namaste");
+}
+x(); // namaste (then wait for 3 sec)
+     // 1
+
+Function inside settimeout forms closure and where ever it goes it takes reference of i;
+* what does setTimeout do?
+- It takes a js function and attaches a timer to it and starts executing next lines of js.
+- once timer exprires it takes the function puts it in call stack and then run the function.
+
+function x(){
+    for(var i=1;i<=5;i++){
+        setTimeout(()=>{
+            console.log(i);
+        },1000);
+    }
+}
+It will print 5 times '6' (since all closures point to reference of var i)(var is function scoped and remains same reference in whole function) 
+
+function x(){
+    let i=1;
+    for(i=1;i<=5;i++){
+        setTimeout(()=>{
+            console.log(i);
+        },1000);
+    }
+}
+It will print 5 times '6' (since all closures point to reference of let i)
+
+function x(){
+    for(let i=1;i<=5;i++){
+        setTimeout(()=>{
+            console.log(i);
+        },1000);
+    }
+} 
+In one second it will print all values 1 2 3 4 5 (for every closure there is a new let i value which is remebered)
+ans->1) 
+function x(){
+     for(let i=1;i<=5;i++){
+        setTimeout(()=>{
+            console.log(i);
+        },1000*i);
+    }
+}
+This will print 1 after 1 sec 2 after 2sec 3 after 3sec and goes on.
+LET HAS BLOCK SCOPED SO AFTER every LOOP i IS A NEW VARIABLE ALLTOGETHER.
+for every loop function forms a closure with new VARIABLE since old one is deleted because its block scoped. 
+
+ans 2) solution using var only
+
+function x(){
+    
+    for(var i=1;i<=5;i++){
+      function y(i){  
+        setTimeout(()=>{
+            console.log(i);
+        },1000*i);
+      }
+      y(i);
+    }
+}
+
+Since var is function scoped for every function there will be a new copy for var
+thats why we wrapped it inside a function.you need to call the function then only setTimeout will be called.
+---------------------------------------------------------------------------------------------------------------------------
+                            EXAMPLE FOR JS CLOSURE

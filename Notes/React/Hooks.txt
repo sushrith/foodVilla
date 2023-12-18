@@ -1,0 +1,31 @@
+Synthetic events??
+
+using default u can only export one component
+//default import
+when u use default no need of curly braces while import
+//named default
+when u dont use default u can export many components
+
+* React uses one way data binding
+Two way data binding is sometimes become unpredictable.
+two way data binding not good for optimization.
+In the input box u put a value and from input u cannot change
+that value while typing u need to update that value then only it will 
+be reflected (use onchange to update the value)
+
+* React cannot keep track of local variables. when local variable is updated
+diff algo wont work and UI wont be updated thats why we need
+state variables.
+
+* Every component in react maintains a state
+every time u need local variable u use state
+use useState Hook from react.
+
+* Hooks is just a js function they give us functionalities
+useState => create State variables which are local (returns an array)
+when update state and use the state at same time it is called 2 way binding 
+
+when u have local variables why do u need state variables??
+->when u update a local variable value will be updated but not DOM.
+->But when u update state variable DOM will be rerendered
+->To make varibales to be in Sync in UI we need state variables

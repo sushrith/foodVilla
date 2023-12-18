@@ -1,0 +1,72 @@
+How to create your own react app ->
+
+To make js app production ready:
+
+1) Bundlers -> webpack,vite(fast),parcel are bundlers
+in create-react-app uses webpack,babel
+
+Lets use parcel in app
+npm is used to manage packages - node-package-manager(NPM is Maven for UI)
+-> npm init =>[You will get package.json] Initialize NPM -y(to skip ques)
+
+-> npm install -D parcel (-D - dev dependency it means u need this parcel in development env because it should not be in prod)
+
+-> After this command we will get package-lock.json , Nodemodules (
+It will lock the version , never put in gitignore
+This will tell u what exact version are you using in production.
+It maintains Hash of version also(Integrity)
+if u define version as ^2.0.2 in package.json
+it will auto upgrade if there are any example 2.0.3
+then in package-lock.json it will be written as 2.0.3
+It has sufficient info to create node-modules
+) (node-modules is like database for packages, add it to gitignore)
+
+-> ^caret(auto up for minor version) & ~tilde(auto up for major version) 
+
+->parcel uses many things to optimize like
+minifier(to minify the code)
+
+-> Install React and ReactDOM (npm install react)
+
+->npx parcel index.html(npx - execute using npm, parcel - bundler,index.html - entry point)
+[This will start a server]
+
+------------------------------------------------------------------------------
+
+-> Now in js file import React and ReactDOM
+-> when browser parses index.html it wont understand import so u need to define that js file is a module.
+    <script type="module" src="index.js"></script>
+
+HOT MODULE RELOAD (HMR) it is done by parcel since it keep track of all files(file watcher algos - written in c++)(Ctrl+S then reload app)  	
+-> Parcel will autorefresh pages after changes.
+
+-> U will also have folder .ParcelCache(uses this space for minify a)
+
+-> dist folder(development build[minified version off app and deploy to our server])
+TO create production build we uses
+npx parcel build index.html(Minify the app/build in dist folder)
+[It will minify and create 3 files 1)index.html 2)index.*****.css 3)index.*****.js]
+
+--------Bundlers(Parcel) will provide all these which are required for building production react apps ----------All these are packages and parcel is orchestrating them--------Every dependency has other dependency(which is transtive dependency)-----------
+
+
+1) HMR - hot module Replacement , 
+2) File watcher algos in c++
+3) Live Server
+4) BUNDLING (combining our all code into 3 files html,css,js)
+5) Minify (In prod builds) (import short versions of react and react dom)
+6) Cleaning our code (No console logs)
+7) Dev and Production Build
+8) Super fast build algos 
+9) Image Optimization (minify images also)
+10) Caching while development (as u see subsequent builds are faster because of caching)(.ParcelCache folder KEEP IN GITIGNORE)
+11) Compatable with older version of browser (browserList package-u can include in package.json)
+12) HTTPS on dev (npx parcel index.html --https)
+13) Uses Consistent Hashing algos 
+14) Parcel is zero config bundler
+15) Tree Shaking - Removing unwanted code
+
+In production build it takes 1.5 sec
+In dev build it takes 400ms, In subseq builds it take 5ms
+
+React is fast because of Bundlers(Parcel),Vitrual DOM etc etc

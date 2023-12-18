@@ -1,0 +1,43 @@
+    setteled(sucess/fail) resolve/fulfilled(success) reject(fail)
+
+1) Promise.all([p1,p2,p3]) - All or None(fail fast)[all result or err]
+It will make 3 parallel API calls and get the results.
+    p1 - 3sec
+    p2 - 1sec
+    p3 - 2sec
+    
+    - All success collect all results give inside arr and return.[val1,val2,val3]
+    - Total time it will take is 3 seconds.
+    - wait for all api calls to complete.
+
+    - p2 -> Rejected after 1 seconds
+    - If any one of Promise fails it will throw an err.
+    - response will be in 1 second as p2 is failed in 1 sec.
+    - err is same as returnd by P2.
+
+2) Promise.allSetteled([p1,p2,p3]) - waits and return all
+    p1 - 3sec
+    p2 - 1sec
+    p3 - 2sec
+    
+    - All success then you will get combined result after 3sec just like Promise.all 
+    
+    - If p2 get Rejected after 1 second
+    - It will wait for all promises to get setteled.
+    - Give results of all promises.
+    - So after 3seconds it will return [val1,err2,val3]  
+
+3) Promise.race([p1,p2,p3]) - return 1st settled result.
+
+    - Returns value of 1st setteled(success/fail) promise (val2/err)
+    - It will not wait for other promises to finish
+
+4) Promise.any([p1,p2,p3]) - return 1st success result.
+
+    - Very much similar to race.
+    - wait for first resolve(success)
+    - If p1 fails and p2 success
+    - it return result of p2 (Val2)
+    
+    - If all fails
+    - it will return Aggregated err [err1,err2,err3]

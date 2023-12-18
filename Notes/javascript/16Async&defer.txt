@@ -1,0 +1,49 @@
+Async and defer attributes used along with script tags
+to load external scripts efficiently into web page.
+
+When u load a web page there are two things happening.
+1) HTML parsing
+2) JS loading
+        - fetching
+        - executing
+
+
+case 1 👎
+
+<script src="" />
+
+Here broweser will start with HTML parsing it encounters script
+it fetches and executes then and there and later continues html parsing.
+Here HTML parsing is stopped until JS is fetched and executes.
+
+case 2 👍
+
+<script async src="" />
+
+Here broweser will start with HTML parsing it encounters script
+it fetches script asynchronusly without stopping parsing and later while 
+executing parsing is stopped and continues parsing after JS execution.
+Here HTML parsing is stopped until JS is executes.
+
+case 3 💯
+
+<script defer src="" />
+
+Here broweser will start with HTML parsing it encounters script
+it fetches script asynchronusly without stopping parsing and scripts will 
+be executed only after completing the HTML parsing.
+No Stopping of HTML parsing.
+
+Async attribute does not gurantee the order of execution of the scripts when there are multiple scripts.
+but defer does follow order of scripts.
+
+when u want to load independent scripts then use async else use defer.
+----------------------------------------------------------------------------
+Storage APIs follows same origin policy.
+Origin:
+1) Protocol - http/https
+2) Host - flipkart.com/amazon.com
+3) Port - 8080
+
+when we say we are setting data for localstorage we are setting for these origin.
+where can we aceess this data when origin is same.

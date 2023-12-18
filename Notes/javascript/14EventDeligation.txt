@@ -1,0 +1,63 @@
+Event Deligation -> Technique of handling events in better way.
+Event Deligation is based on event bubbling.
+
+senario 1 👍
+You have a shopping site with diff catefories
+laptops, cameras, shoes etc
+for every div there is a event listner attached.
+like - document.getElementById("laptop").addEventListner('click',()=>{})
+but when u add event listners for camera shoes and manymore there will be many event listners.
+So to Avoid this we should attach event listner to Parent instead of child.
+
+But how will parent know which child EventListner is called??
+
+example:
+
+<div>
+<ul id="category">
+    <li id="laptops">laptops</li>
+    <li id="cameras">cameras</li>
+    <li id="shoes">shoes</li>
+</ul>
+</div>
+
+document.querySelector("category").addEventListner('click',(e)=>{
+    console.log(e.target.id);
+    if(e.target.tagName=='LI')
+    window.location.href="/"+e.target.id;
+});
+
+Since the events are bubbling up when ever you click on any child(li) it will to parent(ul)
+and EventListner is added to parent so you can get the event from e obj and use it to decide which child is clicked.
+
+
+senario 2 👍 (behaviour patterns)(this can be reuseable jst need to add data-uppercase to any child input to make it upper)
+You have 3 input boxes and you need to add single event listner
+if u enter anything in 1st input box u need to make in upper case.
+
+<div id="form">
+    <input id="name" data-uppercase></input>
+    <input id="pan"></input>
+    <input id="mobile"></input>
+</div>
+
+if u add this data-uppercase then it will be added to dataset inside e obj. 
+document.querySelector("category").addEventListner('keyup',(e)=>{
+    console.log(e.target.id);
+    if(e.target.dataset.uppercase != undefined)
+        e.target.value = e.target.value.toUpperCase();
+});
+
+Benfits:
+Memory is saved(a lot of eventHandlers reduces to one in parent)
+Writing less code
+DOM manipulation(it is easy now if childs are increased)
+
+disadvantages/limitations :-
+1) All the events are not bubbled up
+blur,
+focus,
+scroll,
+resize because of few risks.
+
+2) Event Deligation is not possible if stop propagation.
